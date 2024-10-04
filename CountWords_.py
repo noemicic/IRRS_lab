@@ -30,20 +30,19 @@ def process_file(input_file, output_file):
     #Input file
     with open(input_file, newline='', encoding=encoding) as infile:
         for line in infile:
-            parts = line.split()  
+            parts = line.split(", ")  
             if len(parts) == 2:
                 count, word = parts
                 word = word.strip().lower()  
                 # Filtriamo solo le parole corrette
                 if is_word(word):
-                    valid_words.append(((count), word))
+                    valid_words.append((int(count), word))
     
     #Sorting the words lexicographically
-    valid_words.sort(key=lambda x: x[1])
+    valid_words.sort( key=lambda x: (-x[0], x[1]))
     
     #Output file
     with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
-        outfile.write("count word\n")  # Intestazione
         for count, word in valid_words:
             outfile.write(f"{count} {word}\n")
 
